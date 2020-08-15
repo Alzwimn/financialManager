@@ -11,7 +11,7 @@ test("Deve listar todos os usuarios", () => {
     })
 })
 
-test("Deve inserir usuário com sucesso", () => {
+test.skip("Deve inserir usuário com sucesso", () => {
     const mail = `${Date.now()}@mail.com`
 
     return request(app).post("/users")
