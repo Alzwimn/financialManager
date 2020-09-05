@@ -1,4 +1,3 @@
-const { TestScheduler } = require("jest")
 const request = require("supertest")
 
 const app = require("../../src/app")
@@ -12,7 +11,7 @@ test("Deve listar todos os usuarios", () => {
     })
 })
 
-test.skip("Deve inserir usuário com sucesso", () => {
+test("Deve inserir usuário com sucesso", () => {
     return request(app).post("/users")
         .send({name: "Walter Mitty", mail, password:"123456"})
         .then((res) => {
