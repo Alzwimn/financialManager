@@ -6,7 +6,7 @@ module.exports = (app) => {
         if(!user.name) return { error: "Nome é um atributo obrigatório"}
         if(!user.mail) return { error: "Email é um atributo obrigatório"}
         if(!user.password) return { error: "Senha é um atributo obrigatório"}
-        // FIXME userDB retornando sempre vazio, corregir depois
+
         const userDB = await findAll({ mail:user.mail })
         if(userDB && userDB.length > 0) return {error: "Já exisite um usuário com esse email"} 
 
