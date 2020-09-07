@@ -1,5 +1,6 @@
 const app = require("express")();
-const consign = require("consign")
+const consign = require("consign");
+const e = require("express");
 const knex = require("knex")
 const knexfile = require("../knexfile")
 
@@ -14,6 +15,16 @@ consign({cwd: "src", verbose: false})
 
 app.get("/", (req, res) => {
     res.status(200).send();
+})
+
+app.use((err, req, res, next) => {
+    const {name, message, stack} = err 
+
+    if(name === "ValidationError") res.status(400).json({error: message})
+    else res.status(500).json({name, message, stack})
+
+    next(err)
+
 })
 
 /*app.db.on("query", (query) => {
