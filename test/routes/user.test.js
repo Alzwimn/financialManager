@@ -21,6 +21,17 @@ test("Deve inserir usuário com sucesso", () => {
         })
 })
 
+test("Deve armazenar senha criptografada", async () => {
+    const response = await request(app).post("/users")
+                        .send({name: "Walter Mitty", mail:`${Date.now()}@mail.com`, password:"123456"})
+    expect(response.status).toBe(201)
+    
+    const {id} = response.body
+    const userDB = await app.services.user.findOne({id})
+    expect(userDB.password).not.toBeUndefined()
+    expect(userDB.password).not.toBe("123456")
+})
+
 test("Não deve inserir usuário sem nome", () => {
     return request(app).post("/users")
         .send({mail:"teste@email.com", password:"123456"})
